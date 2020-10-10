@@ -10,7 +10,7 @@ struct SubsciptionId{
 template<typename T>
 class SubscribtionEnabled{
     public:
-    SubsciptionId<T> Subcribe(std::function<void(void)>);
+    SubsciptionId<T> Subcribe(std::function<void()>){};
 
     void UnSubscribe(SubsciptionId<T>);
     private:
@@ -25,11 +25,18 @@ class Second: public SubscribtionEnabled<Second> {
 
 };
 
+class Three : public SubscribtionEnabled<Three> {
+
+};
 
 int main(){
     First f;
     Second s;
-    auto subid = f.Subcribe([](){});
+    Three t;
+    auto subid1 = f.Subcribe([](){});
+    auto subid2 = s.Subcribe([](){});
+    auto subid3 = t.Subcribe([](){});
+ 
     //s.UnSubscribe(subid); <-- error here
 
     return 0;
